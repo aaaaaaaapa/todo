@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+body, p, input, button, ul {
+    margin: 0;
+    padding: 0;
+    font-family: Nunito, serif;
+    font-size: 16px;
+}
+
+.main-container {
+    position: absolute;
+    width: 100%;
+    min-height: 100vh;
+    background-color: rgba(47, 32, 101, 0.854);
+}
+
+/* форма */
+
+.form-container {
+    width: 550px;
+    height: 100%;
+    margin: 100px auto;
+    padding: 25px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.header-text {
+    margin-bottom: 20px;
+    font-size: 36px;
+}
+
+.task-form {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.title-input {
+    width: 80%;
+    background-color: rgba(230, 228, 228, 0.612);
+    margin-right: 5px;
+}
+
+.title-input:focus {
+    outline: none;
+} 
+
+.add-btn {
+    background-color: rgb(255, 100, 44);
+    color: white;
+}
+
+.add-btn:hover {
+    cursor: pointer;
+    color: black;
+    background-color: rgb(210, 209, 209);
+    transition: 0.2s;
+}
+
+.title-input, .add-btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 10px;
+}
+
+/* список задач */
+
+.tasks {
+    display: flex;
+    align-items: center;
+}
+
+.task-list {
+    width: 100%;
+    list-style: none;
+}
+
+.task-item {
+    display: flex;
+    padding: 10px 5px;
+    margin-top: 15px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.task-text {
+    display: flex;
+    align-items: center;
+}
+
+.circle {
+    width: 25px;
+    height: 25px;
+    border: 1px solid black;
+    border-radius: 13px;
+    margin-right: 15px;
+}
+
+.circle:hover {
+    cursor: pointer;
+    background-color: rgb(220, 220, 220);
+} 
+
+.status-btn, .delete-btn {
+    font-size: 14px;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+}
+
+.status-btn:hover, .delete-btn:hover {
+    cursor: pointer;
+    background-color: rgb(255, 100, 44);
+    color: white;
+    transition: 0.1s;
+}
