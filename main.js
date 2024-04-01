@@ -57,7 +57,7 @@ const handleBtnClick = (event) => {
         li.classList.toggle('active');
     }
     else if (tg.classList.contains('delete-btn')) {
-        taskList.remove(li);
+        li.remove();
     }
 }
 
