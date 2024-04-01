@@ -129,8 +129,15 @@ body, h1, input, button, ul {
     width: 95%;
 }
 
-.active {
-    transition: 0.2s;
+.li-active {
     background-color: rgba(255, 100, 44, 0.237);
     border-radius: 5px;
+}
+
+.circle-active {
+    background-color: rgba(255, 100, 44, 0.646);
+}
+
+.text-line {
+    text-decoration: line-through;
 }

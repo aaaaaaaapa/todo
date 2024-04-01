@@ -77,15 +77,18 @@ const handleFormSubmit = (event) => {
 const handleBtnClick = (event) => {
     const tg = event.target;
     const li = tg.closest('li');
+    const [circle, text] = li.children[0].children;
 
-    if (tg.classList.contains('status-btn') || tg === li) {
-        li.classList.toggle('active');
-    }
-    else if (tg.classList.contains('delete-btn')) {
+    if (tg.classList.contains('delete-btn')) {
         li.remove();
     }
-}
+    else if (tg.classList.contains('status-btn') || li) {
+        li.classList.toggle('li-active');
+        circle.classList.toggle('circle-active');
+        text.classList.toggle('text-line');
+    }
 
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     const formCont = document.querySelector('.form-container');
