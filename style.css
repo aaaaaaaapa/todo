@@ -91,11 +91,13 @@ body, h1, input, button, ul {
     align-items: center;
 }
 
-.circle {
-    width: 25px;
-    height: 25px;
-    border: 1px solid black;
-    border-radius: 13px;
+.task-text::before {
+    content: '';
+    background-image: url(./images/unchecked.png);
+    background-size: cover;
+    height: 26px;
+    width: 26px;
+    border-radius: 50%;
     margin-right: 15px;
 }
 
@@ -126,7 +128,6 @@ body, h1, input, button, ul {
 .status-btn:active, .delete-btn:active {
     background-color: white;
     border-color: black;
-    width: 95%;
 }
 
 .li-active {
@@ -134,10 +135,11 @@ body, h1, input, button, ul {
     border-radius: 5px;
 }
 
-.circle-active {
-    background-color: rgba(255, 100, 44, 0.646);
+.li-active>span {
+    color: rgba(0, 0, 0, 0.714);
+    text-decoration: line-through;
 }
 
-.text-line {
-    text-decoration: line-through;
+.li-active>span::before {
+    background-image: url(./images/checked.png);
 }

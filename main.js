@@ -40,17 +40,14 @@ const createListItem = (text) => {
 
     const li = createElement('li', 'task-item');
 
-    const circle = createElement('div', 'circle');
-    const span = createElement('span', 'ts-text', text);
+    const span = createElement('span', 'task-text', text);
     const statusBtn = createElement('button', 'status-btn', 'Выполнено');
     const deleteBtn = createElement('button', 'delete-btn', 'Удалить');
 
-    const divText = createElement('div', 'task-text');
-    divText.append(circle, span);
     const divBtn = createElement('div', 'buttons');
     divBtn.append(statusBtn, deleteBtn);
     
-    li.append(divText, divBtn);
+    li.append(span, divBtn);
     return li;
 
 }
@@ -77,15 +74,12 @@ const handleFormSubmit = (event) => {
 const handleBtnClick = (event) => {
     const tg = event.target;
     const li = tg.closest('li');
-    const [circle, text] = li.children[0].children;
 
     if (tg.classList.contains('delete-btn')) {
         li.remove();
     }
     else if (tg.classList.contains('status-btn') || li) {
         li.classList.toggle('li-active');
-        circle.classList.toggle('circle-active');
-        text.classList.toggle('text-line');
     }
 
 }
