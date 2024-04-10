@@ -1,5 +1,18 @@
-let counter = localStorage.length ? Math.max(...Object.keys(localStorage)) : 0;
 const formCont = document.querySelector('.form-container');
+let tasks = [
+    {
+        text: 'task1',
+        disabled: false
+    },
+    {
+        text: 'task2',
+        disabled: false
+    },
+    {
+        text: 'task3',
+        disabled: true
+    }
+];
 
 const createElement = (elem, className, text='', name='', placeholder='') => {
     const element = document.createElement(elem);
@@ -50,7 +63,7 @@ const createFooter = (form) => {
 
     btn.onclick = () => {
         if (confirm('Вы действительно хотите удалить все дела?')) {
-            localStorage.clear();
+            tasks = [];
             form.closest('div').querySelector('ul').innerHTML = '';
         }
     }
@@ -78,15 +91,12 @@ const createListItem = (text) => {
 const renderListItem = (form) => {
 
     const ul = form.closest('div').querySelector('ul');
-    const keys = Object.keys(localStorage).sort((a, b) => {
-        return a - b
-    });
+    const tasks = JSON.parse(localStorage.todo);
 
-    for (const key of keys) {
-        if (!(document.getElementById(key))) {
-            const item = JSON.parse(localStorage[key]);
+    for (const item of tasks) {
+        if (!(document.getElementById(tasks.indexOf(item)))) {
             const li = createListItem(item.text);
-            li.id = key;
+            li.id = tasks.indexOf(item);
             if (item.disabled) {
                 li.classList.add('li-active');
             }
@@ -97,7 +107,7 @@ const renderListItem = (form) => {
 
 const countTasks = (form) => {
     const [total, done] = form.closest('div').querySelector('.footer-text').children;
-    total.textContent = `Кол-во дел: ${localStorage.length}`;
+    total.textContent = `Кол-во дел: ${tasks.length}`;
     done.textContent = `Выполнено: ${form.closest('div').querySelectorAll('.li-active').length}`;
 }
 
@@ -112,9 +122,9 @@ const handleFormSubmit = (event) => {
         alert('Введите текст');
     }
     else {
-        counter++;
-        localStorage[counter] = JSON.stringify({text: value, disabled: false});
-        renderListItem(event.target);
+        tasks.push({text: value, disabled: false});
+        localStorage.todo = JSON.stringify(tasks);
+        renderListItem(form);
     }
 
     event.target.reset();
@@ -126,16 +136,16 @@ const handleBtnClick = (event) => {
 
     if (event.target.classList.contains('delete-btn')) {
         if (confirm('Вы действительно хотите удалить задачу?')) {
-            localStorage.removeItem(li.id);
             li.remove();
+            tasks.splice(li.id, 1);
         }
     }
     else if (event.target.classList.contains('status-btn') || li) {
         li.classList.toggle('li-active');
-        localStorage[li.id] = JSON.stringify({
-            text: JSON.parse(localStorage[li.id]).text, 
-            disabled: !JSON.parse(localStorage[li.id]).disabled
-        });
+        tasks[li.id] = {
+            text: tasks[li.id].text, 
+            disabled: !tasks[li.id].disabled
+        };
     }
 
 }
@@ -153,16 +163,27 @@ const createToDo = (cont) => {
         countTasks(event.target);
     }); 
     ul.addEventListener('click', handleBtnClick);
+
     renderListItem(form);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     createToDo(formCont);
+
+    if (!localStorage.todo) {
+        localStorage.setItem('todo', JSON.stringify(tasks));
+    }
+    else {
+        tasks = JSON.parse(localStorage.todo);
+    }
+
+    renderListItem(formCont.querySelector('form'));
     countTasks(formCont.querySelector('form'));
 });
 
 document.addEventListener('click', (event) => {
     if (event.target.closest('button') || event.target.closest('li')) {
+        localStorage.todo = JSON.stringify(tasks);
         countTasks(formCont.querySelector('form'));
     }
 })
