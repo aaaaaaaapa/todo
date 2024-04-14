@@ -9,14 +9,26 @@ export const createElement = (elem, className, text='', name='', placeholder='')
     return element;
 }
 
+
 export const createTitle = (text='Список дел') => {
     return createElement('h1', 'header-text', text);
 }
+
 
 export const createForm = (placeholder='Введите текст...', text='Добавить') => {
     const form = createElement('form', 'task-form');
     const input = createElement('input', 'title-input', '', 'title', placeholder);
     const addBtn = createElement('button', 'add-btn', text);
+    addBtn.disabled = true;
+
+    input.oninput = () => {
+        if (input.value.trim() === '') {
+            addBtn.disabled = true;
+        }
+        else {
+            addBtn.disabled = false;
+        }
+    }
 
     form.append(input, addBtn);
 
@@ -26,6 +38,7 @@ export const createForm = (placeholder='Введите текст...', text='Д�
         addBtn
     };
 }
+
 
 export const createFooter = () => {
     const divFtr = createElement('div', 'footer');
@@ -43,6 +56,7 @@ export const createFooter = () => {
      };
 }
 
+
 export const createList = () => {
     const divList = createElement('div', 'tasks');
     const ul = createElement('ul', 'task-list');
@@ -53,6 +67,7 @@ export const createList = () => {
         ul
     }
 }
+
 
 export const createListItem = (text) => {
 

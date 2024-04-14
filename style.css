@@ -60,6 +60,12 @@ body, h1, input, button, ul {
     transition: 0.2s;
 }
 
+.add-btn:disabled {
+    cursor: auto;
+    color: black;
+    background-color: rgb(210, 209, 209);
+}
+
 .title-input, .add-btn {
     padding: 10px 15px;
     border: none;

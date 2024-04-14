@@ -28,6 +28,7 @@ const handleFormSubmit = (event) => {
         alert('Введите текст');
     }
     else {
+        form.querySelector('.add-btn').disabled = true;
         tasks.push({text: value, disabled: false});
         localStorage.todo = JSON.stringify(tasks);
         renderListItem(form);
