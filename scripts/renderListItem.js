@@ -1,9 +1,10 @@
 import { createListItem } from "./createElement.js";
 
-const renderListItem = (form) => {
+const renderListItem = (cont) => {
 
-    const ul = form.closest('div').querySelector('ul');
+    const ul = cont.querySelector('ul');
     ul.innerHTML = '';
+    
     const tasks = JSON.parse(localStorage.todo);
 
     for (const item of tasks) {
@@ -16,10 +17,10 @@ const renderListItem = (form) => {
     }
 }
 
-const countTasks = (form) => {
-    const [total, done] = form.closest('div').querySelector('.footer-text').children;
+const countTasks = (cont) => {
+    const [total, done] = cont.querySelector('.footer-text').children;
     total.textContent = `Кол-во дел: ${JSON.parse(localStorage.todo).length}`;
-    done.textContent = `Выполнено: ${form.closest('div').querySelectorAll('.li-active').length}`;
+    done.textContent = `Выполнено: ${cont.querySelectorAll('.li-active').length}`;
 }
 
 export {renderListItem, countTasks};

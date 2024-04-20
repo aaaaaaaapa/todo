@@ -8,5 +8,5 @@ export const createToDo = (cont) => {
 
     cont.append(h1, form, divList, divFtr);
 
-    return {form, ul, cleanBtn};
+    return {form, ul, divFtr, cleanBtn};
 }

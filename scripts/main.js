@@ -31,9 +31,9 @@ const handleFormSubmit = (event) => {
         form.querySelector('.add-btn').disabled = true;
         tasks.push({text: value, disabled: false});
         localStorage.todo = JSON.stringify(tasks);
-        renderListItem(form);
+        renderListItem(formCont);
     }
-
+    countTasks(formCont);
     event.target.reset();
 }
 
@@ -49,32 +49,27 @@ const handleBtnClick = (event) => {
     }
     else if (event.target.classList.contains('status-btn') || li) {
         li.classList.toggle('li-active');
-        tasks[li.id] = {
-            text: tasks[li.id].text, 
-            disabled: !tasks[li.id].disabled
-        };
+        tasks[li.id].disabled = !tasks[li.id].disabled
     }
+    countTasks(formCont);
 
 }
 
-const handleCleanBtnClick = (form) => {
+const handleCleanBtnClick = (ul) => {
     if (confirm('Вы действительно хотите удалить все дела?')) {
         tasks = [];
-        form.closest('div').querySelector('ul').innerHTML = '';
+        ul.innerHTML = '';
     }
+    countTasks(formCont);
 }
-
-export { handleBtnClick, handleFormSubmit, handleCleanBtnClick };
 
 document.addEventListener('DOMContentLoaded', () => {
     const {form, ul, cleanBtn} = createToDo(formCont);
 
-    form.addEventListener('submit', (event) => {
-        handleFormSubmit(event, tasks);
-        countTasks(event.target);
-    }); 
+    form.addEventListener('submit', handleFormSubmit);
+
     ul.addEventListener('click', handleBtnClick);
-    cleanBtn.addEventListener('click', () => handleCleanBtnClick(form, tasks));
+    cleanBtn.addEventListener('click', () => handleCleanBtnClick(ul));
 
     if (!localStorage.todo) {
         localStorage.setItem('todo', JSON.stringify(tasks));
@@ -83,13 +78,6 @@ document.addEventListener('DOMContentLoaded', () => {
         tasks = JSON.parse(localStorage.todo);
     }
 
-    renderListItem(formCont.querySelector('form'));
-    countTasks(formCont.querySelector('form'));
+    renderListItem(formCont);
+    countTasks(formCont);
 });
-
-document.addEventListener('click', (event) => {
-    if (event.target.closest('button') || event.target.closest('li')) {
-        localStorage.todo = JSON.stringify(tasks);
-        countTasks(formCont.querySelector('form'));
-    }
-})
